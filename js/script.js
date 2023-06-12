@@ -66,12 +66,47 @@ while (opcion != 3) {
     
 let subtitulo = document.getElementById('subtitulo')
 
-
+let listaAportes = []
 
 for (const user of userList) {
-        subtitulo.innerHTML += 'User con id '+ user.id + ' nombre '+  user.nombre + ' realizó un aporte de ' + user.aporte + '\n'
-        console.log('User con id '+ user.id + ' nombre '+  user.nombre + ' realizó un aporte de ' + user.aporte);
+        if (user.aporte.length == 0) {
+            subtitulo.innerHTML += '<p class="alert alert-danger" > User con id '+ user.id + ' nombre '+  user.nombre + ' NO REALIZÓ APORTES ' + '</p>'
+            
+        } else{
+            subtitulo.innerHTML += '<p class="alert alert-success"> User con id '+ user.id + ' nombre '+  user.nombre + ' realizó un aporte de ' + user.aporte + '</p>'
+            if (user.aporte != undefined) {
+                
+                listaAportes.push(user.aporte)
+
+            }
+        
+        }
+        
 }
 
 
+function getMaxOfArray(numArray) {
+    let list1 = numArray.map(a => a[0])
+    let list2 = numArray.map(a => a[1])
+   
+    let list3 = list1.concat(list2)
 
+    list3 = list3.filter(function( element ) {
+        return element !== undefined;
+     });
+    
+
+    return list3.reduce(function(a, b) {
+        return Math.max(a, b);
+    }, -Infinity);
+  } 
+
+
+document.getElementById('aporte').innerHTML= 'Maximo aporte! ' + getMaxOfArray(listaAportes)
+
+
+
+/* for (const user of userList.filter(userList.aporte = Math.max(listaAportes))) {
+    console.log(user);
+}
+ */
